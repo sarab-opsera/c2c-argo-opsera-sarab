@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pick-and-pack-ns
+  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pick-and-pack-deployment
+  namespace: pick-and-pack-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: back-end
+          image: 792373136340.dkr.ecr.us-east-2.amazonaws.com/cisco_pov:1a125b1684949847a80ca237f9b80c5c5f4d2e2c
+
+---
+#Service
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: pick-and-pack-label
+  name: pick-and-pack-service
+  namespace: pick-and-pack-ns
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: web
+  sessionAffinity: None
+  type: LoadBalancer
+
+---

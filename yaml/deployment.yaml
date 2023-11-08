@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: pick-and-pack-ns
+  name: c2c-opsera-sarab-ns
   
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pick-and-pack-deployment
-  namespace: pick-and-pack-ns
+  name: c2c-opsera-sarab-deployment
+  namespace: c2c-opsera-sarab-ns
 spec:
   replicas: 1
   selector:
@@ -29,9 +29,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/name: pick-and-pack-label
-  name: pick-and-pack-service
-  namespace: pick-and-pack-ns
+    app.kubernetes.io/name: c2c-opsera-sarab-label
+  name: c2c-opsera-sarab-service
+  namespace: c2c-opsera-sarab-ns
 spec:
   ports:
   - name: http
